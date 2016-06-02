@@ -1,0 +1,18 @@
+Using http://regexr.com/ to test regex
+
+Parabola:
+regex = y\s*=\s*([\+\-]?\d*x\*\*2)\s*([\+\-]?\d*x)?\s*([\+\-]?\d)?
+    # BUG: Only match with integer
+    # BUG: y = x**2 + 2x +3 match with y = x**2
+    Will match:
+        y = x**2 +2x +3
+        y = +x**2 +2x +3
+        y = -x**2 +2x +3
+        y=x**2+2x-3
+        y = x**2 +3
+        y = x**2 +2x
+        
+    Not will match:
+       y = x**2 + 2x +3  # BUG: match with y = x**2
+       y = - x**2 +2x +3
+       y = 2 x**2 +2x +3
