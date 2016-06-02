@@ -35,4 +35,14 @@ class Parabola:
         This function return the equation or given a x return the y or
         given a point will return true or false if the pint is in parabola.
         """
-        pass
+        try:
+            x = kwargs["x"]
+            y = kwargs["y"]
+            return self.a*x**2 + self.b*x + self.c == y
+
+        except:
+            try:
+                x = kwargs["x"]
+                return self.a*x**2 + self.b*x + self.c
+            except:
+                return self.equation
