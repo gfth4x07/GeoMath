@@ -1,5 +1,6 @@
 #Parabola file for the GeoMath library
-from geomath import point, line as p, l
+from geomath import point as p
+from geomath import line as l
 import re
 
 class Parabola:
@@ -8,8 +9,7 @@ class Parabola:
         self.vertex = None  # Point
         self.focus = None  # Point
         self.directrix = None  # Line
-        self.equation = ""
-        #ax**2 + bx + c
+        self.equation = ""  # ax**2 + bx + c
         self.a = 0
         self.b = 0
         self.c = 0
@@ -29,9 +29,15 @@ class Parabola:
         self.a = 1 if values[0] == "x**2" or "+x**2" else -1 if values[0] == "-x**2" else int(values[0][:-4])
         self.b = 1 if values[1] == "+x" else -1 if values[1] == "-x" else int(values[1][:-1])
         self.c = int(values[2])
-
-        
-    def value():
+        self.vertex = p.Point(-self.b/(2*self.a), self.c -(self.b**2/(4*self.a)))
+        self.focus = p.Point(-self.b/(2*self.a), self.c + (1-self.b**2)/(4*self.a))
+        try:  # Line and Parabola only acept interger values
+            self.directrix = l.Line()
+            self.directrix.create_via_equation("0x +y {:+f} = 0".format(-(self.c-(1+self.b**2)/(4*self.a))))
+        except:
+            self.directrix = None
+            
+    def value(**kwargs):
         """
         This function return the equation or given a x return the y or
         given a point will return true or false if the pint is in parabola.
